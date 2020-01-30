@@ -1,0 +1,14 @@
+{
+  "name": "sheets-to-json",
+  "version": "1.0.0",
+  "description": "[Google Spreadsheets Data API](https://developers.google.com/gdata/samples/spreadsheet_sample)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "restify": "^8.5.1"
+  }
+}
