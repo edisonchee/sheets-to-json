@@ -11,15 +11,13 @@ const asyncWrap = function(fn) {
   };
 };
 
-server.get('/sheet/:sheetId/:sheetNum', asyncWrap(scgs));
+server.get('/sheet/:sheetId/:sheetNum', asyncWrap(parser));
 
 server.listen(7777, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
 
-// SCGS
-
-async function scgs(req, res, next) {
+async function parser(req, res, next) {
   let data;
   try {
     data = await getSheet(req.params.sheetId, req.params.sheetNum);
@@ -38,7 +36,6 @@ function getSheet(sheetId, sheetNum) {
     https.get(`https://spreadsheets.google.com/feeds/cells/${sheetId}/${sheetNum}/public/full?alt=json`, (res) => {
       res.setEncoding('utf8');
       console.log('statusCode:', res.statusCode);
-      // console.log('headers:', res.headers);
       var body = "";
       res.on('data', chunk => {
         body += chunk;
@@ -60,13 +57,9 @@ function processCells(cellsArr) {
   var numRows = 0;
   var numColumns = 0;
   for (let i = 0; i < cellsArr.length; i++) {
-    cellsArr[i].gs$cell.row >= numRows ? numRows = cellsArr[i].gs$cell.row : '';
-    cellsArr[i].gs$cell.col >= numColumns ? numColumns = cellsArr[i].gs$cell.col : '';
+    parseInt(cellsArr[i].gs$cell.row) >= numRows ? numRows = parseInt(cellsArr[i].gs$cell.row) : '';
+    parseInt(cellsArr[i].gs$cell.col) >= numColumns ? numColumns = parseInt(cellsArr[i].gs$cell.col) : '';
   }
-
-  // console.log("numRows: ", numRows);
-  // console.log("numColumns: ", numColumns);
-
   // create headers
   for (let i = 0; i < numColumns; i++) {
     headers[i + 1] = cellsArr[i].gs$cell.inputValue;

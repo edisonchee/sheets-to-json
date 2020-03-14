@@ -1,6 +1,6 @@
 {
   "name": "sheets-to-json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "[Google Spreadsheets Data API](https://developers.google.com/gdata/samples/spreadsheet_sample)",
   "main": "index.js",
   "scripts": {
