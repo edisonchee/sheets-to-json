@@ -1,7 +1,14 @@
 const https = require('https')
+const corsMiddleware = require('restify-cors-middleware')
 var restify = require('restify');
 
+const cors = corsMiddleware({
+  origins: ['url']
+})
+
 var server = restify.createServer();
+
+server.use(cors.actual);
 
 const asyncWrap = function(fn) {
   return function(req, res, next) {
